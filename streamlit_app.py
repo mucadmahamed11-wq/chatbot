@@ -1,14 +1,14 @@
 import streamlit as st
 import google.generativeai as genai
-from gtts import gTTS
+from gTTS import gTTS
 
 st.set_page_config(page_title="Mucad AI - Sound Chatbot", page_icon="🤖")
 st.title("🤖 Mucad AI Chatbot")
 st.write("Ka wada sheekayso AI-ga uu dhisay Injineer MUCAD (Qoraal & Cod)!")
 
-# API Key-ga oo si toos ah loo habeeyay
-genai.configure(api_key="AQ.Ab8RN6KlkpTspCwDHiPfxU7fWbhCeHghxCTqwOTKx-aydV2Png")
-model = genai.GenerativeModel('gemini-2.5-flash')
+# API Key-gaaga cusub oo toos loo habeeyay
+genai.configure(api_key="AQ.Ab8RN6Ji0q0VXnmNnFfPGPhEtz4Y9w-W8AT4zUv7_P1a9qQIVQ")
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -32,9 +32,10 @@ if user_input := st.chat_input("Qor su'aashaada halkan..."):
         with st.chat_message("assistant"):
             st.write(bot_reply)
 
+            # Habaynta iyo soo saarista codka Af-Soomaaliga
             tts = gTTS(text=bot_reply, lang='so')
             audio_file = "voice_reply.mp3"
             tts.save(audio_file)
             st.audio(audio_file, format="audio/mp3", autoplay=True)
     except Exception as e:
-        st.error("Fadlan dib u tijaabi ama hubi su'aashaada.")
+        st.error(f"Fadlan dib u tijaabi: {e}")
