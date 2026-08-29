@@ -5,7 +5,7 @@ st.set_page_config(page_title="Mucad AI - Chatbot", page_icon="🤖")
 st.title("🤖 Mucad AI Chatbot")
 st.write("Ka wada sheekayso AI-ga uu dhisay Injineer MUCAD!")
 
-# API Key-gaaga cusub
+# API Key-gaaga
 genai.configure(api_key="AQ.Ab8RN6Ji0q0VXnmNnFfPGPhEtz4Y9w-W8AT4zUv7_P1a9qQIVQ")
 model = genai.GenerativeModel('gemini-1.5-flash')
 
