@@ -1,14 +1,12 @@
 import streamlit as st
-import google.generativeai as genai
+from groq import Groq
 
 st.set_page_config(page_title="Mucad AI - Chatbot", page_icon="🤖")
 st.title("🤖 Mucad AI Chatbot")
 st.write("Ka wada sheekayso AI-ga uu dhisay Injineer MUCAD!")
 
-# Halkan waa halkii ay API Key-gaagu ku dhex jirtay
-genai.configure(api_key="AQ.Ab8RN6J-566LhdiserQ38Tk9TBWigxh4EaKpTOmqon6vAzOwZw")
-
-model = genai.GenerativeModel('gemini-1.5-flash')
+# API Key-gaaga Groq ee saxda ah
+client = Groq(api_key="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")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -23,10 +21,14 @@ if user_input := st.chat_input("Qor su'aashaada halkan..."):
         st.write(user_input)
 
     try:
-        response = model.generate_content(
-            f"Waxaad tahay caawiye caqli badan oo af-Soomaali ku jawaaba oo uu dhisay MUCAD. {user_input}"
+        response = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "Waxaad tahay caawiye caqli badan oo af-Soomaali ku jawaaba oo uu dhisay MUCAD."},
+                {"role": "user", "content": user_input}
+            ],
+            model="llama-3.3-70b-versatile",
         )
-        bot_reply = response.text
+        bot_reply = response.choices[0].message.content
 
         st.session_state.messages.append({"role": "assistant", "content": bot_reply})
         with st.chat_message("assistant"):
