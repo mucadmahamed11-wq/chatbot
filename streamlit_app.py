@@ -5,7 +5,7 @@ st.set_page_config(page_title="Mucad AI - Chatbot", page_icon="🤖")
 st.title("🤖 Mucad AI Chatbot")
 st.write("Ka wada sheekayso AI-ga uu dhisay Injineer MUCAD!")
 
-# API Key-gaaga Groq ee saxda ah
+# API Key-gaaga Groq
 client = Groq(api_key="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")
 
 if "messages" not in st.session_state:
@@ -26,7 +26,7 @@ if user_input := st.chat_input("Qor su'aashaada halkan..."):
                 {"role": "system", "content": "Waxaad tahay caawiye caqli badan oo af-Soomaali ku jawaaba oo uu dhisay MUCAD."},
                 {"role": "user", "content": user_input}
             ],
-            model="llama-3.3-70b-versatile",
+            model="llama-3.1-8b-instant",
         )
         bot_reply = response.choices[0].message.content
 
